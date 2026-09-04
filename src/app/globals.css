@@ -1,1 +1,124 @@
+/* Hallmark · macrostructure: Workbench · theme: Terminal (custom tuned) · nav: N8 Terminal command · footer: Ft2 Inline rule · genre: modern-minimal · audience: cybersecurity recruiters/HPI peers · use: project proof → contact · tone: technical austere cool */
 @import "tailwindcss";
+
+:root {
+  /* Paper / ink */
+  --color-paper: oklch(0.985 0.003 240);
+  --color-paper-2: oklch(0.965 0.004 240);
+  --color-paper-3: oklch(0.94 0.006 240);
+  --color-ink: oklch(0.18 0.012 250);
+  --color-ink-2: oklch(0.38 0.015 250);
+  --color-ink-3: oklch(0.55 0.012 250);
+  --color-ink-muted: oklch(0.62 0.01 250);
+  /* Accent — restrained phosphor, not neon */
+  --color-accent: oklch(0.62 0.14 152);
+  --color-accent-2: oklch(0.55 0.12 152);
+  --color-accent-soft: oklch(0.96 0.025 152);
+  --color-accent-ink: oklch(0.22 0.04 152);
+  /* Borders & grid */
+  --color-border: oklch(0.88 0.008 240);
+  --color-border-strong: oklch(0.78 0.012 240);
+  --color-grid: oklch(0.92 0.006 240);
+  /* Semantic */
+  --color-focus: oklch(0.62 0.14 152);
+  --color-success: oklch(0.62 0.14 152);
+  --color-warn: oklch(0.72 0.12 75);
+  /* Fonts — wired via next/font variables */
+  --font-display: var(--font-mono);
+  --font-body: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  /* Spacing 4pt */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  /* Radii — restrained, not pill-everywhere */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+}
+
+* { scrollbar-width: thin; scrollbar-color: var(--color-border-strong) transparent; }
+
+html, body {
+  overflow-x: clip;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+html { scroll-behavior: auto; }
+
+/* Lenis */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+/* Type */
+body {
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1,h2,h3 { font-family: var(--font-display); font-style: normal; font-weight: 600; letter-spacing: -0.02em; overflow-wrap: anywhere; min-width: 0; }
+::selection { background: var(--color-accent-soft); color: var(--color-accent-ink); }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+/* Hairline grid background — subtle */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, var(--color-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Figure discipline — real screenshots only */
+figure.screenshot {
+  border: 1px solid var(--color-border);
+  background: white;
+  overflow: hidden;
+}
+figure.screenshot img { display: block; width: 100%; height: auto; }
+
+/* Embla */
+.embla { overflow: hidden; }
+.embla__container { display: flex; touch-action: pan-y pinch-zoom; }
+.embla__slide { flex: 0 0 100%; min-width: 0; }
+@media (min-width: 768px) { .embla__slide { flex: 0 0 52%; } }
+@media (min-width: 1100px) { .embla__slide { flex: 0 0 42%; } }
+
+/* Cursor dot */
+.cursor-dot {
+  position: fixed;
+  width: 10px; height: 10px;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: normal;
+  opacity: 0.9;
+  transform: translate(-50%, -50%);
+  transition: width 0.18s ease, height 0.18s ease, background 0.18s ease, opacity 0.18s ease;
+}
+.cursor-dot::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: var(--color-accent);
+  border-radius: 50%;
+  opacity: 0.9;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot { display: none !important; }
+}
+@media (pointer: coarse) { .cursor-dot { display: none !important; } }
+
+/* Hide scrollbar for carousel */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

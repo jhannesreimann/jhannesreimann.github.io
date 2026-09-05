@@ -100,11 +100,24 @@ export default function ProjectsHorizontal({
       setRange(max);
     };
     update();
+    const t1 = setTimeout(update, 500);
+    const t2 = setTimeout(update, 1500);
+    const t3 = setTimeout(update, 3000);
     window.addEventListener("resize", update);
-    const t = setTimeout(update, 500);
+    window.addEventListener("load", update);
+    const ro = new ResizeObserver(update);
+    if (trackRef.current) ro.observe(trackRef.current);
+    const imgs = trackRef.current?.querySelectorAll("img") ?? [];
+    imgs.forEach((img) => {
+      if (!img.complete) img.addEventListener("load", update, { once: true });
+    });
     return () => {
       window.removeEventListener("resize", update);
-      clearTimeout(t);
+      window.removeEventListener("load", update);
+      ro.disconnect();
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
     };
   }, []);
 

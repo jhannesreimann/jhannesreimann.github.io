@@ -73,7 +73,7 @@ figure.screenshot {
   background: var(--color-paper-2);
   overflow: hidden;
 }
-figure.screenshot img { display: block; width: 100%; height: auto; }
+figure.screenshot img { display: block; width: 100%; }
 
 /* Trailing blend cursor: small instant dot plus large lagging ring */
 .cursor-dot-instant {
@@ -118,7 +118,7 @@ figure.screenshot img { display: block; width: 100%; height: auto; }
   flex-direction: column;
   justify-content: center;
 }
-.projects-track { display: flex; gap: 1rem; will-change: transform; }
+.projects-track { display: flex; gap: 1rem; align-items: flex-start; will-change: transform; }
 @media (min-width: 768px) { .projects-track { gap: 1.25rem; } }
 .project-card { flex: 0 0 82vw; min-width: 0; }
 @media (min-width: 768px) { .project-card { flex-basis: 52vw; } }
@@ -127,12 +127,14 @@ figure.screenshot img { display: block; width: 100%; height: auto; }
 .ascii-face {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 7px;
-  line-height: 1.15;
+  line-height: 1.35;
+  letter-spacing: 0;
   white-space: pre;
   overflow-x: auto;
+  max-width: 100%;
   color: var(--color-ink-3);
 }
-@media (min-width: 768px) { .ascii-face { font-size: 8px; } }
+@media (min-width: 768px) { .ascii-face { font-size: 7.5px; } }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

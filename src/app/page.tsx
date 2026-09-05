@@ -107,12 +107,10 @@ export default function Page() {
                 <div className="mt-6">
                   <TypedPrompt text="whoami" />
                 </div>
-                <h1 className="mt-3 text-[38px] sm:text-[52px] lg:text-[60px] leading-[0.95] tracking-[-0.03em] font-semibold min-w-0">
-                  {t.firstName}
+                <h1 className="mt-3 text-[34px] sm:text-[52px] lg:text-[60px] leading-[0.98] tracking-[-0.03em] font-semibold min-w-0">
+                  {t.firstName} {t.middleName}
                   <br />
-                  <span className="text-[var(--color-ink-3)] text-[0.62em] font-medium tracking-tight">{t.middleName}</span>
-                  <br />
-                  <span className="text-[var(--color-ink)]">{t.lastName}</span>
+                  {t.lastName}
                   <span className="text-[var(--color-ink-3)]">.</span>
                 </h1>
                 <p className="mt-5 max-w-[48ch] text-[16px] sm:text-[17px] leading-relaxed text-[var(--color-ink-2)]">
@@ -326,79 +324,60 @@ export default function Page() {
                 </div>
               </motion.div>
               <div className="col-span-12 lg:col-span-7 min-w-0">
-                <div className="grid grid-cols-12 gap-3">
-                  <div className="col-span-12 sm:col-span-5">
-                    <figure className="screenshot m-0">
+                <div className="grid grid-cols-12 gap-3 items-start">
+                  <div className="col-span-12 sm:col-span-5 min-w-0">
+                    <figure className="screenshot m-0 h-fit">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src="/screenshots/inclu-go-new.png" alt="IncluGo phone view" className="w-full h-[380px] object-contain bg-[var(--color-paper-2)] p-2" />
                     </figure>
                     <div className="text-[11px] font-mono text-[var(--color-ink-3)] mt-1.5">{t.awards_caption}</div>
                   </div>
-                  <div className="col-span-12 sm:col-span-7 grid gap-3">
-                    <figure className="screenshot m-0">
+                  <div className="col-span-12 sm:col-span-7 grid gap-3 items-start min-w-0">
+                    <figure className="screenshot m-0 h-fit">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src="/awards/hackhpi-trophy-1.jpg" alt="HackHPI trophy 1" className="w-full h-auto" />
                     </figure>
-                    <div className="grid grid-cols-2 gap-3">
-                      <figure className="screenshot m-0">
+                    <div className="grid grid-cols-2 gap-3 items-start">
+                      <figure className="screenshot m-0 h-fit">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/awards/hackhpi-trophy-2.jpg" alt="HackHPI trophy 2" className="w-full h-full object-cover" />
+                        <img src="/awards/hackhpi-trophy-2.jpg" alt="HackHPI trophy 2" className="w-full h-auto" />
                       </figure>
-                      <figure className="screenshot m-0">
+                      <figure className="screenshot m-0 h-fit">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/awards/hackhpi-trophy-3.jpg" alt="HackHPI trophy 3" className="w-full h-full object-cover" />
+                        <img src="/awards/hackhpi-trophy-3.jpg" alt="HackHPI trophy 3" className="w-full h-auto" />
                       </figure>
                     </div>
                   </div>
                 </div>
-                <div className="mt-2 text-[11px] font-mono text-[var(--color-ink-muted)]">{t.awards_trophy_caption}</div>
               </div>
             </div>
           </div>
         </section>
 
         <section id="contact" className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 min-w-0">
-          <div className="grid grid-cols-12 gap-8 min-w-0">
-            <div className="col-span-12 lg:col-span-6 min-w-0">
-              <div className="text-[11px] font-mono tracking-widest uppercase text-[var(--color-ink-2)]">{t.contact_kicker}</div>
-              <h2 className="mt-2 text-[28px] sm:text-[32px] leading-tight tracking-[-0.02em] font-semibold">{t.contact_title}</h2>
-              <p className="mt-3 text-[14px] leading-relaxed text-[var(--color-ink-2)] max-w-[48ch]">{t.contact_desc}</p>
-              <div className="mt-6 grid gap-2.5 max-w-[520px]">
-                <a href="mailto:reimann.jhannes@gmail.com" className="flex items-center justify-between gap-4 border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-[var(--color-border-strong)] transition min-w-0" data-hover>
-                  <span className="min-w-0 flex items-center gap-3">
-                    <MailIcon size={16} />
-                    <span className="block text-[14px] font-mono truncate">reimann.jhannes@gmail.com</span>
-                  </span>
-                  <span className="shrink-0 text-[14px]">→</span>
+          <div className="max-w-[560px] min-w-0">
+            <div className="text-[11px] font-mono tracking-widest uppercase text-[var(--color-ink-2)]">{t.contact_kicker}</div>
+            <h2 className="mt-2 text-[28px] sm:text-[32px] leading-tight tracking-[-0.02em] font-semibold">{t.contact_title}</h2>
+            <p className="mt-3 text-[14px] leading-relaxed text-[var(--color-ink-2)] max-w-[48ch]">{t.contact_desc}</p>
+            <div className="mt-6 grid gap-2.5">
+              <a href="mailto:reimann.jhannes@gmail.com" className="flex items-center justify-between gap-4 border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-[var(--color-border-strong)] transition min-w-0" data-hover>
+                <span className="min-w-0 flex items-center gap-3">
+                  <MailIcon size={16} />
+                  <span className="block text-[14px] font-mono truncate">reimann.jhannes@gmail.com</span>
+                </span>
+                <span className="shrink-0 text-[14px]">→</span>
+              </a>
+              <div className="grid grid-cols-2 gap-2.5">
+                <a href="https://github.com/jhannesreimann" target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-[var(--color-border-strong)] transition">
+                  <GitHubIcon size={16} />
+                  <span className="block text-[13px] font-mono">jhannesreimann</span>
                 </a>
-                <div className="grid grid-cols-2 gap-2.5">
-                  <a href="https://github.com/jhannesreimann" target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-[var(--color-border-strong)] transition">
-                    <GitHubIcon size={16} />
-                    <span className="block text-[13px] font-mono">jhannesreimann</span>
-                  </a>
-                  <a href="https://www.linkedin.com/in/jhannes-reimann/" target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-[var(--color-border-strong)] transition">
-                    <LinkedInIcon size={16} />
-                    <span className="block text-[13px] font-mono">in/jhannes</span>
-                  </a>
-                </div>
-                <div className="text-[11px] font-mono text-[var(--color-ink-muted)]">{t.contact_location}</div>
+                <a href="https://www.linkedin.com/in/jhannes-reimann/" target="_blank" rel="noreferrer" className="flex items-center gap-2 border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-[var(--color-border-strong)] transition">
+                  <LinkedInIcon size={16} />
+                  <span className="block text-[13px] font-mono">in/jhannes</span>
+                </a>
               </div>
-            </div>
-            <div className="col-span-12 lg:col-span-6 min-w-0">
-              <div className="border border-[var(--color-border)] bg-[var(--color-card)] p-5 sm:p-6">
-                <div className="text-[11px] font-mono tracking-widest uppercase text-[var(--color-ink-3)]">{t.contact_avail}</div>
-                <ul className="mt-3 space-y-2 text-[13px] leading-relaxed text-[var(--color-ink-2)]">
-                  <li className="flex gap-2"><span className="text-[var(--color-ink-3)]">-</span> {t.contact_avail_1}</li>
-                  <li className="flex gap-2"><span className="text-[var(--color-ink-3)]">-</span> {t.contact_avail_2}</li>
-                  <li className="flex gap-2"><span className="text-[var(--color-ink-3)]">-</span> {t.contact_avail_3}</li>
-                </ul>
-                <div className="mt-6">
-                  <a href="mailto:reimann.jhannes@gmail.com?subject=Hi Jhannes, from your site" className="inline-flex items-center gap-2 text-[13px] font-mono underline decoration-[var(--color-border-strong)] underline-offset-4 hover:text-[var(--color-ink)] transition whitespace-nowrap">
-                    <MailIcon size={14} /> {t.contact_compose}
-                  </a>
-                </div>
-              </div>
-              <p className="mt-3 text-[11px] font-mono text-[var(--color-ink-muted)]">{t.contact_no_tracking}</p>
+              <div className="text-[11px] font-mono text-[var(--color-ink-muted)]">{t.contact_location}</div>
             </div>
           </div>
         </section>

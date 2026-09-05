@@ -1,33 +1,28 @@
-/* Hallmark · macrostructure: Workbench · theme: Terminal (custom tuned) · nav: N8 Terminal command · footer: Ft2 Inline rule · genre: modern-minimal · audience: cybersecurity recruiters/HPI peers · use: project proof → contact · tone: technical austere cool */
+/* Hallmark · macrostructure: Workbench · theme: Terminal dark personal · nav: N8 Terminal command · footer: Ft2 Inline rule · genre: modern-minimal · audience: cybersecurity recruiters/HPI peers · use: project proof to contact · tone: technical austere cool */
 @import "tailwindcss";
 
 :root {
-  /* Paper / ink */
-  --color-paper: oklch(0.985 0.003 240);
-  --color-paper-2: oklch(0.965 0.004 240);
-  --color-paper-3: oklch(0.94 0.006 240);
-  --color-ink: oklch(0.18 0.012 250);
-  --color-ink-2: oklch(0.38 0.015 250);
-  --color-ink-3: oklch(0.55 0.012 250);
-  --color-ink-muted: oklch(0.62 0.01 250);
-  /* Accent — restrained phosphor, not neon */
-  --color-accent: oklch(0.62 0.14 152);
-  --color-accent-2: oklch(0.55 0.12 152);
-  --color-accent-soft: oklch(0.96 0.025 152);
-  --color-accent-ink: oklch(0.22 0.04 152);
-  /* Borders & grid */
-  --color-border: oklch(0.88 0.008 240);
-  --color-border-strong: oklch(0.78 0.012 240);
-  --color-grid: oklch(0.92 0.006 240);
-  /* Semantic */
-  --color-focus: oklch(0.62 0.14 152);
-  --color-success: oklch(0.62 0.14 152);
-  --color-warn: oklch(0.72 0.12 75);
-  /* Fonts — wired via next/font variables */
+  /* Dark personal terminal, not corporate white */
+  --color-paper: oklch(0.165 0.012 250);
+  --color-paper-2: oklch(0.205 0.014 250);
+  --color-paper-3: oklch(0.25 0.016 250);
+  --color-card: oklch(0.19 0.013 250);
+  --color-ink: oklch(0.93 0.006 240);
+  --color-ink-2: oklch(0.78 0.01 240);
+  --color-ink-3: oklch(0.62 0.012 240);
+  --color-ink-muted: oklch(0.52 0.012 240);
+  /* Accent used sparingly, only for links and live pulse */
+  --color-accent: oklch(0.72 0.12 152);
+  --color-accent-2: oklch(0.8 0.1 152);
+  --color-accent-soft: oklch(0.25 0.05 152);
+  --color-accent-ink: oklch(0.9 0.03 152);
+  --color-border: oklch(0.30 0.014 250);
+  --color-border-strong: oklch(0.42 0.016 250);
+  --color-grid: oklch(0.22 0.012 250);
+  --color-focus: oklch(0.8 0.1 152);
   --font-display: var(--font-mono);
   --font-body: var(--font-sans);
   --font-mono: var(--font-geist-mono);
-  /* Spacing 4pt */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -36,11 +31,9 @@
   --space-2xl: 3rem;
   --space-3xl: 4rem;
   --space-4xl: 6rem;
-  /* Radii — restrained, not pill-everywhere */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;
-  --radius-pill: 999px;
 }
 
 * { scrollbar-width: thin; scrollbar-color: var(--color-border-strong) transparent; }
@@ -53,12 +46,10 @@ html, body {
 
 html { scroll-behavior: auto; }
 
-/* Lenis */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 
-/* Type */
 body {
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   font-size: 16px;
@@ -70,7 +61,6 @@ h1,h2,h3 { font-family: var(--font-display); font-style: normal; font-weight: 60
 ::selection { background: var(--color-accent-soft); color: var(--color-accent-ink); }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 
-/* Hairline grid background — subtle */
 .grid-bg {
   background-image:
     linear-gradient(to right, var(--color-grid) 1px, transparent 1px),
@@ -78,47 +68,71 @@ h1,h2,h3 { font-family: var(--font-display); font-style: normal; font-weight: 60
   background-size: 40px 40px;
 }
 
-/* Figure discipline — real screenshots only */
 figure.screenshot {
   border: 1px solid var(--color-border);
-  background: white;
+  background: var(--color-paper-2);
   overflow: hidden;
 }
 figure.screenshot img { display: block; width: 100%; height: auto; }
 
-/* Embla */
-.embla { overflow: hidden; }
-.embla__container { display: flex; touch-action: pan-y pinch-zoom; }
-.embla__slide { flex: 0 0 100%; min-width: 0; }
-@media (min-width: 768px) { .embla__slide { flex: 0 0 52%; } }
-@media (min-width: 1100px) { .embla__slide { flex: 0 0 42%; } }
-
-/* Cursor dot */
-.cursor-dot {
+/* Trailing blend cursor: small instant dot plus large lagging ring */
+.cursor-dot-instant {
   position: fixed;
-  width: 10px; height: 10px;
-  border: 1.5px solid var(--color-accent);
+  left: 0; top: 0;
+  width: 6px; height: 6px;
+  margin: -3px 0 0 -3px;
   border-radius: 50%;
+  background: white;
+  mix-blend-mode: difference;
   pointer-events: none;
   z-index: 9999;
-  mix-blend-mode: normal;
-  opacity: 0.9;
-  transform: translate(-50%, -50%);
-  transition: width 0.18s ease, height 0.18s ease, background 0.18s ease, opacity 0.18s ease;
 }
-.cursor-dot::after {
-  content: "";
-  position: absolute;
-  inset: 3px;
-  background: var(--color-accent);
+.cursor-ring-lag {
+  position: fixed;
+  left: 0; top: 0;
+  width: 36px; height: 36px;
+  margin: -18px 0 0 -18px;
   border-radius: 50%;
-  opacity: 0.9;
+  border: 1.5px solid white;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.85;
 }
 @media (prefers-reduced-motion: reduce) {
-  .cursor-dot { display: none !important; }
+  .cursor-dot-instant, .cursor-ring-lag { display: none !important; }
 }
-@media (pointer: coarse) { .cursor-dot { display: none !important; } }
+@media (pointer: coarse) {
+  .cursor-dot-instant, .cursor-ring-lag { display: none !important; }
+}
 
-/* Hide scrollbar for carousel */
+/* Pinned horizontal projects */
+.projects-pin { position: relative; }
+.projects-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.projects-track { display: flex; gap: 1rem; will-change: transform; }
+@media (min-width: 768px) { .projects-track { gap: 1.25rem; } }
+.project-card { flex: 0 0 82vw; min-width: 0; }
+@media (min-width: 768px) { .project-card { flex-basis: 52vw; } }
+@media (min-width: 1100px) { .project-card { flex-basis: 38vw; } }
+
+.ascii-face {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 7px;
+  line-height: 1.15;
+  white-space: pre;
+  overflow-x: auto;
+  color: var(--color-ink-3);
+}
+@media (min-width: 768px) { .ascii-face { font-size: 8px; } }
+
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

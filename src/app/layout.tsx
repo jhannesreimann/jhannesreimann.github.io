@@ -14,14 +14,13 @@ const sans = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Jhannes Reimann — Security Engineering · HPI",
+  title: "Jhannes Ernesto Reimann, Security Engineering, HPI",
   description:
-    "MSc Computer Science at HPI (Security Engineering). Building DNS, IoT pentest, therapy search & mail security tools. Potsdam — open to security roles.",
+    "MSc Computer Science at HPI (Security Engineering). Building DNS, IoT pentest, therapy search and mail security tools. Potsdam, open to security roles.",
   metadataBase: new URL("https://jhannesreimann.dev"),
   openGraph: {
-    title: "Jhannes Reimann — Security Engineering · HPI",
-    description:
-      "MSc Computer Science at HPI. DNS-over-HTTPS, IoT pentest, therapy search, STARTTLS. Potsdam.",
+    title: "Jhannes Ernesto Reimann, Security Engineering, HPI",
+    description: "MSc Computer Science at HPI. DNS over HTTPS, IoT pentest, therapy search, STARTTLS. Potsdam.",
     type: "website",
   },
 };

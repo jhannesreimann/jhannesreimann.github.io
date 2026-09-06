@@ -132,7 +132,7 @@ figure.screenshot img { display: block; width: 100%; }
   white-space: pre;
   overflow-x: auto;
   max-width: 100%;
-  color: var(--color-ink-3);
+  color: var(--color-accent);
 }
 @media (min-width: 768px) { .ascii-face { font-size: 7.5px; } }
 

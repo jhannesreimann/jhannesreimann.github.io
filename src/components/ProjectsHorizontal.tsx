@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import type { ProjectText } from "@/lib/i18n";
+import { ExpandHint, openLightbox } from "@/components/Lightbox";
 
 type Meta = {
   id: string;
@@ -11,7 +12,7 @@ type Meta = {
   image: string;
   alt: string;
   portrait?: boolean;
-  isGif?: boolean;
+  video?: string;
 };
 
 const META: Meta[] = [
@@ -31,9 +32,9 @@ const META: Meta[] = [
     title: "chonkyflipper",
     stack: ["Raspberry Pi 4", "Kali ARM64", "Flask", "Vite + Tailwind"],
     links: [{ label: "GitHub", href: "https://github.com/jhannesreimann/chonkyflipper" }],
-    image: "/screenshots/chonky-case.gif",
+    image: "/screenshots/chonky-case.mp4",
     alt: "ChonkyFlipper custom case, 3D animation loop",
-    isGif: true,
+    video: "/screenshots/chonky-case.mp4",
   },
   {
     id: "therapy",
@@ -126,9 +127,20 @@ export default function ProjectsHorizontal({
       <div className="grid gap-4">
         {META.map((m, i) => (
           <article key={m.id} className="border border-[var(--color-border)] bg-[var(--color-card)] overflow-hidden">
-            <figure className="screenshot m-0 border-0 border-b border-[var(--color-border)]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={m.image} alt={m.alt} loading="lazy" className="w-full h-auto" />
+            <figure className="screenshot group relative m-0 border-0 border-b border-[var(--color-border)]">
+              {m.video ? (
+                <video src={m.video} muted loop playsInline preload="metadata" controls className="w-full h-auto" />
+              ) : (
+                <button
+                  onClick={() => openLightbox(m.image, `${m.title}: ${m.alt}`)}
+                  aria-label={`Open ${m.title} image viewer`}
+                  className="block w-full cursor-pointer"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={m.image} alt={m.alt} loading="lazy" className="w-full h-auto pointer-events-none" />
+                </button>
+              )}
+              {!m.video && <ExpandHint />}
             </figure>
             <div className="p-5">
               <div className="text-[11px] font-mono tracking-widest uppercase text-[var(--color-ink-3)]">{texts[i]?.kicker}</div>
@@ -162,14 +174,34 @@ export default function ProjectsHorizontal({
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="project-card border border-[var(--color-border)] bg-[var(--color-card)] flex flex-col overflow-hidden h-[560px] sm:h-[590px] md:h-[610px]"
               >
-                <figure className="screenshot m-0 border-0 border-b border-[var(--color-border)] h-[220px] sm:h-[260px] md:h-[300px] shrink-0 bg-[var(--color-paper-2)]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={m.image}
-                    alt={m.alt}
-                    loading="lazy"
-                    className="w-full h-full object-contain object-center"
-                  />
+                <figure className="screenshot group relative m-0 border-0 border-b border-[var(--color-border)] h-[220px] sm:h-[260px] md:h-[300px] shrink-0 bg-[var(--color-paper-2)]">
+                  <button
+                    onClick={() => openLightbox(m.image, `${m.title}: ${m.alt}`)}
+                    aria-label={`Open ${m.title} image viewer`}
+                    data-hover
+                    className="block w-full h-full cursor-pointer"
+                  >
+                    {m.video ? (
+                      <video
+                        src={m.video}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="auto"
+                        className="w-full h-full object-contain object-center pointer-events-none"
+                      />
+                    ) : (
+                      /* eslint-disable-next-line @next/next/no-img-element */
+                      <img
+                        src={m.image}
+                        alt={m.alt}
+                        loading="lazy"
+                        className="w-full h-full object-contain object-center pointer-events-none"
+                      />
+                    )}
+                  </button>
+                  <ExpandHint />
                 </figure>
                 <div className="p-5 flex flex-col gap-2 flex-1 min-w-0 min-h-0">
                   <div className="text-[11px] font-mono tracking-widest uppercase text-[var(--color-ink-3)]">

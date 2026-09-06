@@ -7,6 +7,8 @@ import LenisProvider from "@/components/LenisProvider";
 import CursorDot from "@/components/CursorDot";
 import TypedPrompt from "@/components/TypedPrompt";
 import ProjectsHorizontal from "@/components/ProjectsHorizontal";
+import HeroBackdrop from "@/components/HeroBackdrop";
+import { ExpandHint, LightboxHost, openLightbox } from "@/components/Lightbox";
 import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/Icons";
 import { dict, type Lang } from "@/lib/i18n";
 
@@ -78,6 +80,7 @@ export default function Page() {
     <>
       <LenisProvider />
       <CursorDot />
+      <LightboxHost closeLabel={t.nav_close} />
 
       <header className="sticky top-0 z-40 backdrop-blur-[10px] bg-[var(--color-paper)]/85 border-b border-[var(--color-border)]">
         <nav className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-[56px] flex items-center justify-between gap-2 min-w-0">
@@ -171,6 +174,7 @@ export default function Page() {
       <main className="min-w-0">
         <section id="top" className="relative border-b border-[var(--color-border)] overflow-hidden min-w-0">
           <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" aria-hidden />
+          <HeroBackdrop />
           <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-10 sm:pb-12">
             <div className="grid grid-cols-12 gap-6 lg:gap-8 items-start min-w-0">
               <motion.div
@@ -427,25 +431,57 @@ export default function Page() {
               <div className="col-span-12 lg:col-span-7 min-w-0">
                 <div className="grid grid-cols-12 gap-3 items-start">
                   <div className="col-span-12 sm:col-span-5 min-w-0">
-                    <figure className="screenshot m-0 h-fit">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/screenshots/inclu-go-new.png" alt="IncluGo phone view" className="w-full h-[380px] object-contain bg-[var(--color-paper-2)] p-2" />
+                    <figure className="screenshot group relative m-0 h-fit">
+                      <button
+                        onClick={() => openLightbox("/screenshots/inclu-go-new.png", "IncluGo phone view")}
+                        aria-label="Open IncluGo screenshot viewer"
+                        data-hover
+                        className="block w-full cursor-pointer"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/screenshots/inclu-go-new.png" alt="IncluGo phone view" className="w-full h-[380px] object-contain bg-[var(--color-paper-2)] p-2 pointer-events-none" />
+                      </button>
+                      <ExpandHint />
                     </figure>
                     <div className="text-[11px] font-mono text-[var(--color-ink-3)] mt-1.5">{t.awards_caption}</div>
                   </div>
                   <div className="col-span-12 sm:col-span-7 grid gap-3 items-start min-w-0">
-                    <figure className="screenshot m-0 h-fit">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src="/awards/hackhpi-trophy-1.jpg" alt="HackHPI trophy 1" className="w-full h-auto" />
+                    <figure className="screenshot group relative m-0 h-fit">
+                      <button
+                        onClick={() => openLightbox("/awards/hackhpi-trophy-1.jpg", "HackHPI trophy 1")}
+                        aria-label="Open trophy photo viewer"
+                        data-hover
+                        className="block w-full cursor-pointer"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src="/awards/hackhpi-trophy-1.jpg" alt="HackHPI trophy 1" className="w-full h-auto pointer-events-none" />
+                      </button>
+                      <ExpandHint />
                     </figure>
                     <div className="grid grid-cols-2 gap-3 items-start">
-                      <figure className="screenshot m-0 h-fit">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/awards/hackhpi-trophy-2.jpg" alt="HackHPI trophy 2" className="w-full h-auto" />
+                      <figure className="screenshot group relative m-0 h-fit">
+                        <button
+                          onClick={() => openLightbox("/awards/hackhpi-trophy-2.jpg", "HackHPI trophy 2")}
+                          aria-label="Open trophy photo viewer"
+                          data-hover
+                          className="block w-full cursor-pointer"
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src="/awards/hackhpi-trophy-2.jpg" alt="HackHPI trophy 2" className="w-full h-auto pointer-events-none" />
+                        </button>
+                        <ExpandHint />
                       </figure>
-                      <figure className="screenshot m-0 h-fit">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/awards/hackhpi-trophy-3.jpg" alt="HackHPI trophy 3" className="w-full h-auto" />
+                      <figure className="screenshot group relative m-0 h-fit">
+                        <button
+                          onClick={() => openLightbox("/awards/hackhpi-trophy-3.jpg", "HackHPI trophy 3")}
+                          aria-label="Open trophy photo viewer"
+                          data-hover
+                          className="block w-full cursor-pointer"
+                        >
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src="/awards/hackhpi-trophy-3.jpg" alt="HackHPI trophy 3" className="w-full h-auto pointer-events-none" />
+                        </button>
+                        <ExpandHint />
                       </figure>
                     </div>
                   </div>

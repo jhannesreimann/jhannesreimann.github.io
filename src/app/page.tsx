@@ -2,7 +2,7 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import LenisProvider from "@/components/LenisProvider";
 import CursorDot from "@/components/CursorDot";
 import TypedPrompt from "@/components/TypedPrompt";
@@ -41,6 +41,25 @@ const ASCII_FACE = [
 
 export default function Page() {
   const [lang, setLang] = useState<Lang>("en");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [spy, setSpy] = useState("top");
+
+  useEffect(() => {
+    const ids = ["top", "experience", "projects", "thesis", "awards", "contact"];
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) setSpy(e.target.id);
+        }
+      },
+      { rootMargin: "-40% 0px -55% 0px" }
+    );
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, []);
 
   useEffect(() => {
     const saved = localStorage.getItem("lang") as Lang | null;
@@ -62,20 +81,21 @@ export default function Page() {
 
       <header className="sticky top-0 z-40 backdrop-blur-[10px] bg-[var(--color-paper)]/85 border-b border-[var(--color-border)]">
         <nav className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-[56px] flex items-center justify-between gap-2 min-w-0">
-          <Link href="#" className="font-mono text-[13px] tracking-tight text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition min-w-0 truncate">
-            j.ernesto.reimann
+          <Link href="#top" className="font-mono text-[13px] tracking-tight text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition min-w-0 truncate" aria-label="Back to top">
+            ~/{spy === "top" ? "" : spy}
+            <span className="inline-block w-[8px] h-[13px] bg-[var(--color-ink-3)] ml-1 translate-y-[2px] animate-pulse" aria-hidden />
           </Link>
-          <div className="flex items-center gap-1 text-[12px] sm:text-[13px] font-mono shrink-0">
-            <a href="#projects" className="px-2 sm:px-3 py-1.5 text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-2)] transition whitespace-nowrap">
+          <div className="hidden sm:flex items-center gap-1 text-[13px] font-mono shrink-0">
+            <a href="#projects" className="px-3 py-1.5 text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-2)] transition whitespace-nowrap">
               {t.nav_projects}
             </a>
-            <a href="#thesis" className="hidden sm:inline-block px-2 sm:px-3 py-1.5 text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-2)] transition whitespace-nowrap">
+            <a href="#thesis" className="px-3 py-1.5 text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-2)] transition whitespace-nowrap">
               {t.nav_thesis}
             </a>
-            <a href="#awards" className="hidden sm:inline-block px-2 sm:px-3 py-1.5 text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-2)] transition whitespace-nowrap">
+            <a href="#awards" className="px-3 py-1.5 text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:bg-[var(--color-paper-2)] transition whitespace-nowrap">
               {t.nav_awards}
             </a>
-            <a href="#contact" className="px-2 sm:px-3 py-1.5 text-[var(--color-ink)] underline decoration-[var(--color-border-strong)] underline-offset-4 hover:decoration-[var(--color-ink)] transition whitespace-nowrap">
+            <a href="#contact" className="px-3 py-1.5 text-[var(--color-ink)] underline decoration-[var(--color-border-strong)] underline-offset-4 hover:decoration-[var(--color-ink)] transition whitespace-nowrap">
               {t.nav_contact}
             </a>
             <button
@@ -86,11 +106,70 @@ export default function Page() {
               {lang === "en" ? "DE" : "EN"}
             </button>
           </div>
+          <div className="flex sm:hidden items-center gap-2 shrink-0">
+            <button
+              onClick={toggle}
+              aria-label="Switch language"
+              className="px-2.5 py-1.5 border border-[var(--color-border)] text-[11px] font-mono tracking-widest uppercase text-[var(--color-ink-2)] whitespace-nowrap"
+            >
+              {lang === "en" ? "DE" : "EN"}
+            </button>
+            <button
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+              className="px-3 py-1.5 border border-[var(--color-border)] text-[12px] font-mono text-[var(--color-ink)] whitespace-nowrap"
+            >
+              {t.nav_menu} +
+            </button>
+          </div>
         </nav>
       </header>
 
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 bg-[var(--color-paper)] flex flex-col"
+          >
+            <div className="max-w-[1280px] w-full mx-auto px-4 h-[56px] flex items-center justify-between border-b border-[var(--color-border)]">
+              <span className="font-mono text-[13px] text-[var(--color-ink-2)]">~/{spy === "top" ? "" : spy}</span>
+              <button
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+                className="px-3 py-1.5 border border-[var(--color-border)] text-[12px] font-mono text-[var(--color-ink)] whitespace-nowrap"
+              >
+                {t.nav_close} x
+              </button>
+            </div>
+            <nav className="flex-1 flex flex-col justify-center gap-1 px-6">
+              {[
+                { n: "01", href: "#projects", label: t.nav_projects },
+                { n: "02", href: "#thesis", label: t.nav_thesis },
+                { n: "03", href: "#awards", label: t.nav_awards },
+                { n: "04", href: "#contact", label: t.nav_contact },
+              ].map((l, i) => (
+                <motion.a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMenuOpen(false)}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.06 * i, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex items-baseline gap-4 py-3 border-b border-[var(--color-border)] font-mono text-[24px] text-[var(--color-ink)]"
+                >
+                  <span className="text-[12px] text-[var(--color-ink-3)]">{l.n}</span> {l.label}
+                </motion.a>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <main className="min-w-0">
-        <section className="relative border-b border-[var(--color-border)] overflow-hidden min-w-0">
+        <section id="top" className="relative border-b border-[var(--color-border)] overflow-hidden min-w-0">
           <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" aria-hidden />
           <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-10 sm:pb-12">
             <div className="grid grid-cols-12 gap-6 lg:gap-8 items-start min-w-0">
@@ -197,25 +276,36 @@ export default function Page() {
           </div>
         </section>
 
-        <section className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 border-b border-[var(--color-border)] min-w-0">
+        <section id="experience" className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 border-b border-[var(--color-border)] min-w-0">
           <div className="grid grid-cols-12 gap-8 lg:gap-10 min-w-0">
             <div className="col-span-12 lg:col-span-7 min-w-0">
               <div className="flex items-baseline gap-3">
                 <span className="text-[11px] font-mono tracking-widest uppercase text-[var(--color-ink-2)]">{t.experience_title}</span>
                 <span className="h-px flex-1 bg-[var(--color-border)] hidden sm:block" />
               </div>
-              <div className="mt-6 space-y-6">
-                {t.jobs.map((job) => (
-                  <div key={job.role} className="border-l-2 border-[var(--color-border)] pl-4 sm:pl-5">
-                    <div className="text-[13px] font-semibold leading-tight">{job.role}</div>
-                    <div className="text-[13px] text-[var(--color-ink-2)]">{job.org}</div>
-                    <div className="text-[11px] font-mono text-[var(--color-ink-3)] mt-1">{job.meta}</div>
-                    <ul className="mt-2 space-y-1 text-[13px] leading-relaxed text-[var(--color-ink-2)] list-disc pl-4">
-                      {job.bullets.map((b) => (
-                        <li key={b}>{b}</li>
-                      ))}
-                    </ul>
-                  </div>
+              <div className="mt-6 space-y-2">
+                {t.jobs.map((job, i) => (
+                  <motion.div
+                    key={job.role}
+                    initial={{ opacity: 0, x: -14 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.45, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    data-hover
+                    className="group flex gap-4 py-4 border-b border-[var(--color-border)] hover:bg-[var(--color-card)] hover:px-3 transition-all"
+                  >
+                    <span className="font-mono text-[11px] text-[var(--color-ink-muted)] pt-0.5 shrink-0">0{i + 1}</span>
+                    <div className="min-w-0">
+                      <div className="text-[14px] font-semibold leading-tight">{job.role}</div>
+                      <div className="text-[13px] text-[var(--color-ink-2)]">{job.org}</div>
+                      <div className="text-[11px] font-mono text-[var(--color-ink-3)] mt-1">{job.meta}</div>
+                      <ul className="mt-2 space-y-1 text-[13px] leading-relaxed text-[var(--color-ink-2)] list-disc pl-4">
+                        {job.bullets.map((b) => (
+                          <li key={b}>{b}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -225,13 +315,24 @@ export default function Page() {
                 <span className="h-px flex-1 bg-[var(--color-border)] hidden sm:block" />
               </div>
               <div className="mt-6 space-y-4">
-                {t.schools.map((e) => (
-                  <div key={e.school} className="border border-[var(--color-border)] bg-[var(--color-card)] p-4">
-                    <div className="text-[13px] font-semibold">{e.school}</div>
+                {t.schools.map((e, i) => (
+                  <motion.div
+                    key={e.school}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.45, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    data-hover
+                    className="border border-[var(--color-border)] bg-[var(--color-card)] p-4 hover:border-[var(--color-border-strong)] transition-colors"
+                  >
+                    <div className="flex items-baseline justify-between gap-3">
+                      <div className="text-[13px] font-semibold">{e.school}</div>
+                      <span className="font-mono text-[11px] text-[var(--color-ink-muted)] shrink-0">E{i + 1}</span>
+                    </div>
                     <div className="text-[13px] text-[var(--color-ink-2)]">{e.degree}</div>
                     <div className="text-[11px] font-mono text-[var(--color-ink-3)] mt-1">{e.when}</div>
                     {e.note !== "" && <div className="text-[12px] text-[var(--color-ink-3)] mt-1">{e.note}</div>}
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>

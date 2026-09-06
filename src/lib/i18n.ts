@@ -14,6 +14,8 @@ export const dict = {
     nav_thesis: "--thesis",
     nav_awards: "--awards",
     nav_contact: "--contact",
+    nav_menu: "menu",
+    nav_close: "close",
     hero_badge: "Potsdam, HPI, Security Engineering",
     hero_desc:
       "MSc Computer Science at Hasso Plattner Institute, Security focus. I build tools for problems I actually have: DNS measurements, pocket pentest rigs, therapy search, mail downgrade tests.",
@@ -154,6 +156,8 @@ export const dict = {
     nav_thesis: "--thesis",
     nav_awards: "--awards",
     nav_contact: "--kontakt",
+    nav_menu: "menü",
+    nav_close: "zu",
     hero_badge: "Potsdam, HPI, Security Engineering",
     hero_desc:
       "MSc Informatik am Hasso Plattner Institut, Fokus Security. Ich baue Tools für Probleme, die ich selbst habe: DNS Messungen, Pentest Rig für die Tasche, Therapiesuche, Mail Downgrade Tests.",

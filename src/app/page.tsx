@@ -1,12 +1,13 @@
 /* Hallmark · pre-emit critique: P5 H4 E5 S4 R5 V5 · Workbench dark personal, pinned scroll, spring cursor */
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
 import LenisProvider from "@/components/LenisProvider";
 import CursorDot from "@/components/CursorDot";
 import TypedPrompt from "@/components/TypedPrompt";
 import ProjectsHorizontal from "@/components/ProjectsHorizontal";
+import HeroField from "@/components/HeroField";
 import { LightboxHost, openLightbox } from "@/components/Lightbox";
 import { GitHubIcon, LinkedInIcon, MailIcon } from "@/components/Icons";
 import { dict, type Lang } from "@/lib/i18n";
@@ -44,6 +45,9 @@ export default function Page() {
   const [lang, setLang] = useState<Lang>("en");
   const [menuOpen, setMenuOpen] = useState(false);
   const [spy, setSpy] = useState("top");
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: heroProg } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const gridY = useTransform(heroProg, [0, 1], [0, 90]);
 
   useEffect(() => {
     const ids = ["top", "experience", "projects", "thesis", "awards", "contact"];
@@ -80,6 +84,7 @@ export default function Page() {
       <LenisProvider />
       <CursorDot />
       <LightboxHost closeLabel={t.nav_close} />
+      <div className="grain" aria-hidden />
 
       <header className="sticky top-0 z-40 backdrop-blur-[10px] bg-[var(--color-paper)]/85 border-b border-[var(--color-border)]">
         <nav className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-[56px] flex items-center justify-between gap-2 min-w-0">
@@ -171,8 +176,9 @@ export default function Page() {
       </AnimatePresence>
 
       <main className="min-w-0">
-        <section id="top" className="relative border-b border-[var(--color-border)] overflow-hidden min-w-0">
-          <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" aria-hidden />
+        <section id="top" ref={heroRef} className="relative border-b border-[var(--color-border)] overflow-hidden min-w-0">
+          <motion.div style={{ y: gridY }} className="absolute inset-0 grid-bg opacity-40 pointer-events-none" aria-hidden />
+          <HeroField />
           <div className="relative max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-10 sm:pb-12">
             <div className="grid grid-cols-12 gap-6 lg:gap-8 items-start min-w-0">
               <motion.div

@@ -6,7 +6,7 @@ import { useEffect, useRef } from "react";
 // slow sine drift when the pointer is away. The gaze follows a smoothed
 // cursor so it trails behind fast moves instead of snapping to the pointer.
 const CELL = 26;
-const RADIUS = 300;
+const RADIUS = 190;
 const FOLLOW = 0.08;
 const GLYPHS = ["\u2500", "\u2572", "\u2502", "\u2571"];
 
@@ -56,16 +56,16 @@ export default function HeroField() {
             const a = Math.atan2(dy, dx);
             const sector = ((Math.round(a / (Math.PI / 4)) % 4) + 4) % 4;
             const heat = 1 - dist / RADIUS;
-            const alpha = 0.28 + heat * 0.7;
+            const alpha = 0.15 + heat * 0.6;
             ctx.fillStyle =
-              heat > 0.4
+              heat > 0.65
                 ? `rgba(125,219,163,${alpha.toFixed(3)})`
                 : `rgba(150,158,170,${alpha.toFixed(3)})`;
             ctx.fillText(GLYPHS[sector], x, y);
           } else {
             const wave =
               Math.sin(x * 0.018 + t * 0.0006) * Math.cos(y * 0.02 - t * 0.0004);
-            const alpha = 0.16 + Math.max(0, wave) * 0.12;
+            const alpha = 0.12 + Math.max(0, wave) * 0.08;
             ctx.fillStyle = `rgba(140,150,165,${alpha.toFixed(3)})`;
             ctx.fillText("\u00B7", x, y);
           }

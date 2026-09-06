@@ -10,20 +10,6 @@ export function openLightbox(src: string, alt: string) {
   fire?.({ src, alt });
 }
 
-export function ExpandHint() {
-  return (
-    <span
-      aria-hidden
-      className="absolute bottom-2 right-2 inline-flex items-center gap-1 px-2 py-1 font-mono text-[10px] tracking-widest uppercase bg-black/60 text-white border border-white/20 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity"
-    >
-      open
-      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden>
-        <path d="M7 1h4v4M11 1 6.5 5.5M5 11H1V7M1 11l4.5-4.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    </span>
-  );
-}
-
 export function LightboxHost({ closeLabel }: { closeLabel: string }) {
   const [item, setItem] = useState<LightItem | null>(null);
 

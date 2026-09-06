@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import type { ProjectText } from "@/lib/i18n";
-import { ExpandHint, openLightbox } from "@/components/Lightbox";
+import { openLightbox } from "@/components/Lightbox";
 
 type Meta = {
   id: string;
@@ -140,7 +140,6 @@ export default function ProjectsHorizontal({
                   <img src={m.image} alt={m.alt} loading="lazy" className="w-full h-auto pointer-events-none" />
                 </button>
               )}
-              {!m.video && <ExpandHint />}
             </figure>
             <div className="p-5">
               <div className="text-[11px] font-mono tracking-widest uppercase text-[var(--color-ink-3)]">{texts[i]?.kicker}</div>
@@ -201,7 +200,6 @@ export default function ProjectsHorizontal({
                       />
                     )}
                   </button>
-                  <ExpandHint />
                 </figure>
                 <div className="p-5 flex flex-col gap-2 flex-1 min-w-0 min-h-0">
                   <div className="text-[11px] font-mono tracking-widest uppercase text-[var(--color-ink-3)]">

@@ -219,7 +219,7 @@ export default function Page() {
                     <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" aria-hidden /> {t.hero_open}
                   </span>
                   <span className="px-2 py-1 border border-[var(--color-border)] text-[var(--color-ink-3)]">Potsdam, DE</span>
-                  <span className="px-2 py-1 border border-[var(--color-border)] text-[var(--color-ink-3)]">MSc HPI 25 to 27</span>
+                  <span className="px-2 py-1 border border-[var(--color-border)] text-[var(--color-ink-3)]">{t.hero_msc}</span>
                 </div>
               </motion.div>
 
@@ -354,7 +354,7 @@ export default function Page() {
               {t.projects_title_1} <span className="text-[var(--color-ink-3)]">{t.projects_title_2}</span>
             </h2>
           </div>
-          <ProjectsHorizontal texts={t.projects} hint={t.projects_hint} />
+          <ProjectsHorizontal texts={t.projects} hint={t.projects_hint} moreLabel={t.projects_more} reposLabel={t.projects_repos} />
         </section>
 
         <section id="thesis" className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 border-b border-[var(--color-border)] min-w-0">
@@ -418,10 +418,10 @@ export default function Page() {
                 <p className="mt-3 text-[12px] leading-relaxed text-[var(--color-ink-3)]">{t.awards_team}</p>
                 <div className="mt-5 flex flex-wrap gap-2.5">
                   <a href="https://github.com/SamuelLess/inclu-go" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-[var(--color-border-strong)] text-[13px] font-mono hover:border-[var(--color-ink-3)] transition whitespace-nowrap">
-                    <GitHubIcon size={14} /> IncluGo on GitHub
+                    <GitHubIcon size={14} /> {t.awards_github}
                   </a>
                   <a href="https://www.youtube.com/watch/-fjqKHxNptQ" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-[var(--color-border)] text-[13px] font-mono text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:border-[var(--color-border-strong)] transition whitespace-nowrap">
-                    Demo video
+                    {t.awards_video}
                   </a>
                   <a href="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7310236945253625857" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 border border-[var(--color-border)] text-[13px] font-mono text-[var(--color-ink-2)] hover:text-[var(--color-ink)] hover:border-[var(--color-border-strong)] transition whitespace-nowrap">
                     <LinkedInIcon size={14} /> {t.awards_link_post}
@@ -437,13 +437,13 @@ export default function Page() {
                   <div className="col-span-12 sm:col-span-5 min-w-0">
                     <figure className="screenshot group relative m-0 h-fit">
                       <button
-                        onClick={() => openLightbox("/screenshots/inclu-go-new.png", "IncluGo phone view")}
+                        onClick={() => openLightbox("/screenshots/inclu-go-new.png", t.awards_alt_phone)}
                         aria-label="Open IncluGo screenshot viewer"
                         data-hover
                         className="block w-full cursor-pointer"
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/screenshots/inclu-go-new.png" alt="IncluGo phone view" className="w-full h-[380px] object-contain bg-[var(--color-paper-2)] p-2 pointer-events-none" />
+                        <img src="/screenshots/inclu-go-new.png" alt={t.awards_alt_phone} className="w-full h-[380px] object-contain bg-[var(--color-paper-2)] p-2 pointer-events-none" />
                       </button>
                     </figure>
                     <div className="text-[11px] font-mono text-[var(--color-ink-3)] mt-1.5">{t.awards_caption}</div>
@@ -451,36 +451,36 @@ export default function Page() {
                   <div className="col-span-12 sm:col-span-7 grid gap-3 items-start min-w-0">
                     <figure className="screenshot group relative m-0 h-fit">
                       <button
-                        onClick={() => openLightbox("/awards/hackhpi-trophy-1.jpg", "HackHPI trophy 1")}
+                        onClick={() => openLightbox("/awards/hackhpi-trophy-1.jpg", `${t.awards_alt_trophy} 1`)}
                         aria-label="Open trophy photo viewer"
                         data-hover
                         className="block w-full cursor-pointer"
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src="/awards/hackhpi-trophy-1.jpg" alt="HackHPI trophy 1" className="w-full h-auto pointer-events-none" />
+                        <img src="/awards/hackhpi-trophy-1.jpg" alt={`${t.awards_alt_trophy} 1`} className="w-full h-auto pointer-events-none" />
                       </button>
                     </figure>
                     <div className="grid grid-cols-2 gap-3 items-start">
                       <figure className="screenshot group relative m-0 h-fit">
                         <button
-                          onClick={() => openLightbox("/awards/hackhpi-trophy-2.jpg", "HackHPI trophy 2")}
+                          onClick={() => openLightbox("/awards/hackhpi-trophy-2.jpg", `${t.awards_alt_trophy} 2`)}
                           aria-label="Open trophy photo viewer"
                           data-hover
                           className="block w-full cursor-pointer"
                         >
                           {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src="/awards/hackhpi-trophy-2.jpg" alt="HackHPI trophy 2" className="w-full h-auto pointer-events-none" />
+                          <img src="/awards/hackhpi-trophy-2.jpg" alt={`${t.awards_alt_trophy} 2`} className="w-full h-auto pointer-events-none" />
                         </button>
                         </figure>
                       <figure className="screenshot group relative m-0 h-fit">
                         <button
-                          onClick={() => openLightbox("/awards/hackhpi-trophy-3.jpg", "HackHPI trophy 3")}
+                          onClick={() => openLightbox("/awards/hackhpi-trophy-3.jpg", `${t.awards_alt_trophy} 3`)}
                           aria-label="Open trophy photo viewer"
                           data-hover
                           className="block w-full cursor-pointer"
                         >
                           {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src="/awards/hackhpi-trophy-3.jpg" alt="HackHPI trophy 3" className="w-full h-auto pointer-events-none" />
+                          <img src="/awards/hackhpi-trophy-3.jpg" alt={`${t.awards_alt_trophy} 3`} className="w-full h-auto pointer-events-none" />
                         </button>
                         </figure>
                     </div>

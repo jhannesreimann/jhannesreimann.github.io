@@ -2,7 +2,7 @@ export type Lang = "en" | "de";
 
 export type Job = { role: string; org: string; meta: string; bullets: string[] };
 export type School = { school: string; degree: string; when: string; note: string };
-export type ProjectText = { kicker: string; impact: string };
+export type ProjectText = { kicker: string; impact: string; alt: string };
 
 export const dict = {
   en: {
@@ -21,6 +21,7 @@ export const dict = {
       "MSc Computer Science at Hasso Plattner Institute, Security focus. I build tools for problems I actually have: DNS measurements, pocket pentest rigs, therapy search, mail downgrade tests.",
     hero_desc2: "Breaking things to understand them better.",
     hero_open: "open to security roles",
+    hero_msc: "MSc HPI 25 to 27",
     term_title: "jhannes@hpi: ~/now",
     term_live: "live",
     term_whoami_out: "Jhannes Ernesto Reimann, MSc HPI, SAP working student",
@@ -88,26 +89,33 @@ export const dict = {
     projects_title_1: "Built for problems",
     projects_title_2: "I actually have.",
     projects_hint: "Keep scrolling. Vertical scroll drives this row sideways.",
+    projects_more: "more on github",
+    projects_repos: "17 public repos",
     projects: [
       {
         kicker: "01, DoH performance, HPI",
         impact: "Ranks DNS over HTTPS resolvers in the browser with a Rust and WASM engine.",
+        alt: "DNS Resolver Recommender, live ranking view",
       },
       {
         kicker: "02, IoT pentesting, Pi 4",
         impact: "Portable rig: WiFi, BLE, IR, sub GHz, Zigbee, NFC plus BadUSB, controlled from a phone.",
+        alt: "ChonkyFlipper custom case, 3D animation loop",
       },
       {
         kicker: "03, Health access, KVBB and 116117",
         impact: "Finds free psychotherapy slots across KVBB plus 116117 as a weekly calendar.",
+        alt: "TherapyAlert, search and calendar view",
       },
       {
         kicker: "04, Mail security, HPI NSIP 25/26",
         impact: "Deliberately strict mail server that shows if your client survives STARTTLS downgrade.",
+        alt: "Selftest service guided run, hosted locally",
       },
       {
         kicker: "05, Accessibility, Ottobock challenge",
         impact: "Personal obstacle aware routing. HackHPI 2025 Challenge 1 winner.",
+        alt: "IncluGo on a phone, obstacle swipe view",
       },
     ] as ProjectText[],
     thesis_kicker: "04, Research",
@@ -133,16 +141,15 @@ export const dict = {
     awards_presenting: "Presenting",
     awards_presenting_val: "Digital Health Innovation Forum, HPI 2025, live demo of inclu-go routing.",
     awards_caption: "IncluGo on the phone: swipe obstacles, check the route.",
+    awards_github: "IncluGo on GitHub",
+    awards_video: "Demo video",
+    awards_alt_phone: "IncluGo phone view",
+    awards_alt_trophy: "HackHPI trophy",
     awards_link_post: "LinkedIn announcement",
     contact_kicker: "06, Contact",
     contact_title: "Let's talk security.",
     contact_desc:
       "Open to working student, internship and junior security or platform roles. Fastest way is email, I read everything.",
-    contact_avail: "Availability",
-    contact_avail_1: "Security and platform engineering, working student to full time",
-    contact_avail_2: "HPI MSc until Apr 2027, Potsdam and Berlin, hybrid preferred",
-    contact_avail_3: "Topics: TLS, DNS, mail security, IoT radio, OSM",
-    contact_compose: "Compose email",
     contact_location: "Potsdam, Germany, mail and GitHub fastest",
     contact_no_tracking: "No tracking, no cookies. Just email plus GitHub.",
     footer: "2026 Jhannes Ernesto Reimann, Potsdam, Built with Next.js, JetBrains Mono plus Inter",
@@ -163,6 +170,7 @@ export const dict = {
       "MSc Informatik am Hasso Plattner Institut, Fokus Security. Ich baue Tools für Probleme, die ich selbst habe: DNS Messungen, Pentest Rig für die Tasche, Therapiesuche, Mail Downgrade Tests.",
     hero_desc2: "Systeme testen, um sie zu verstehen.",
     hero_open: "offen für Security Rollen",
+    hero_msc: "MSc HPI 25 bis 27",
     term_title: "jhannes@hpi: ~/now",
     term_live: "live",
     term_whoami_out: "Jhannes Ernesto Reimann, MSc HPI, Werkstudent bei SAP",
@@ -230,26 +238,33 @@ export const dict = {
     projects_title_1: "Gebaut für Probleme,",
     projects_title_2: "die ich wirklich habe.",
     projects_hint: "Einfach weiter scrollen. Vertikales Scrollen fährt diese Reihe seitlich.",
+    projects_more: "mehr auf github",
+    projects_repos: "17 öffentliche Repos",
     projects: [
       {
         kicker: "01, DoH Performance, HPI",
         impact: "Rankt DNS over HTTPS Resolver im Browser mit Rust und WASM Engine.",
+        alt: "DNS Resolver Recommender, Live Ranking Ansicht",
       },
       {
         kicker: "02, IoT Pentesting, Pi 4",
         impact: "Portables Rig: WLAN, BLE, IR, Sub GHz, Zigbee, NFC plus BadUSB, Steuerung per Handy.",
+        alt: "ChonkyFlipper Gehäuse, 3D Animation",
       },
       {
         kicker: "03, Versorgung, KVBB und 116117",
         impact: "Findet freie Psychotherapie Termine über KVBB plus 116117 als Wochenkalender.",
+        alt: "TherapyAlert, Suche und Kalenderansicht",
       },
       {
         kicker: "04, Mail Security, HPI NSIP 25/26",
         impact: "Absichtlich strenger Mailserver, der zeigt ob dein Client STARTTLS Downgrade übersteht.",
+        alt: "Selftest Service, geführter Durchlauf, lokal gehostet",
       },
       {
         kicker: "05, Barrierefreiheit, Ottobock Challenge",
         impact: "Persönliches Hindernis Routing. HackHPI 2025 Challenge 1 Gewinner.",
+        alt: "IncluGo auf dem Handy, Hindernis Ansicht",
       },
     ] as ProjectText[],
     thesis_kicker: "04, Forschung",
@@ -275,16 +290,15 @@ export const dict = {
     awards_presenting: "Auftritt",
     awards_presenting_val: "Digital Health Innovation Forum, HPI 2025, Live Demo des inclu-go Routings.",
     awards_caption: "IncluGo auf dem Handy: Hindernisse wischen, Route prüfen.",
+    awards_github: "IncluGo auf GitHub",
+    awards_video: "Demovideo",
+    awards_alt_phone: "IncluGo Handyansicht",
+    awards_alt_trophy: "HackHPI Trophäe",
     awards_link_post: "LinkedIn Post",
     contact_kicker: "06, Kontakt",
     contact_title: "Lass über Security sprechen.",
     contact_desc:
       "Offen für Werkstudent, Praktikum und Junior Security oder Platform Rollen. Am schnellsten per Mail, ich lese alles.",
-    contact_avail: "Verfügbarkeit",
-    contact_avail_1: "Security und Platform Engineering, Werkstudent bis Vollzeit",
-    contact_avail_2: "HPI MSc bis Apr 2027, Potsdam und Berlin, hybrid bevorzugt",
-    contact_avail_3: "Themen: TLS, DNS, Mail Security, IoT Funk, OSM",
-    contact_compose: "Mail schreiben",
     contact_location: "Potsdam, Deutschland, Mail und GitHub am schnellsten",
     contact_no_tracking: "Kein Tracking, keine Cookies. Nur Mail plus GitHub.",
     footer: "2026 Jhannes Ernesto Reimann, Potsdam, Mit Next.js gebaut, JetBrains Mono plus Inter",

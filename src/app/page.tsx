@@ -57,7 +57,7 @@ export default function Page() {
           if (e.isIntersecting) setSpy(e.target.id);
         }
       },
-      { rootMargin: "-40% 0px -55% 0px" }
+      { rootMargin: "-60% 0px -35% 0px" }
     );
     ids.forEach((id) => {
       const el = document.getElementById(id);
@@ -89,7 +89,7 @@ export default function Page() {
       <header className="sticky top-0 z-40 backdrop-blur-[10px] bg-[var(--color-paper)]/85 border-b border-[var(--color-border)]">
         <nav className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-[56px] flex items-center justify-between gap-2 min-w-0">
           <Link href="#top" className="font-mono text-[13px] tracking-tight text-[var(--color-ink-2)] hover:text-[var(--color-ink)] transition min-w-0 truncate" aria-label="Back to top">
-            ~/{spy === "top" ? "" : spy}
+            ~/{spy === "top" ? "" : (t.nav_sections[spy] ?? spy)}
             <span className="inline-block w-[8px] h-[13px] bg-[var(--color-ink-3)] ml-1 translate-y-[2px] animate-pulse" aria-hidden />
           </Link>
           <div className="hidden sm:flex items-center gap-1 text-[13px] font-mono shrink-0">
@@ -142,7 +142,7 @@ export default function Page() {
             className="fixed inset-0 z-50 bg-[var(--color-paper)] flex flex-col"
           >
             <div className="max-w-[1280px] w-full mx-auto px-4 h-[56px] flex items-center justify-between border-b border-[var(--color-border)]">
-              <span className="font-mono text-[13px] text-[var(--color-ink-2)]">~/{spy === "top" ? "" : spy}</span>
+              <span className="font-mono text-[13px] text-[var(--color-ink-2)]">~/{spy === "top" ? "" : (t.nav_sections[spy] ?? spy)}</span>
               <button
                 onClick={() => setMenuOpen(false)}
                 aria-label="Close menu"

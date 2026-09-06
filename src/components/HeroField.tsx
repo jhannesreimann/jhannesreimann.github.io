@@ -3,9 +3,11 @@ import { useEffect, useRef } from "react";
 
 // Gaze vector field: dim dots at rest, line glyphs near the cursor that
 // point at it (angle quantized to 4 sectors), brightness ramp by proximity,
-// slow sine drift when the pointer is away.
+// slow sine drift when the pointer is away. The gaze follows a smoothed
+// cursor so it trails behind fast moves instead of snapping to the pointer.
 const CELL = 26;
-const RADIUS = 230;
+const RADIUS = 300;
+const FOLLOW = 0.08;
 const GLYPHS = ["\u2500", "\u2572", "\u2502", "\u2571"];
 
 export default function HeroField() {
@@ -26,6 +28,7 @@ export default function HeroField() {
     let raf = 0;
     let visible = true;
     const mouse = { x: -9999, y: -9999, active: false };
+    const sm = { x: -9999, y: -9999 };
 
     const resize = () => {
       const rect = host.getBoundingClientRect();
@@ -38,29 +41,31 @@ export default function HeroField() {
     resize();
 
     const draw = (t: number) => {
+      sm.x += (mouse.x - sm.x) * FOLLOW;
+      sm.y += (mouse.y - sm.y) * FOLLOW;
       ctx.clearRect(0, 0, w, h);
       ctx.font = "13px 'JetBrains Mono', ui-monospace, monospace";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       for (let y = CELL / 2; y < h; y += CELL) {
         for (let x = CELL / 2; x < w; x += CELL) {
-          const dx = mouse.x - x;
-          const dy = mouse.y - y;
+          const dx = sm.x - x;
+          const dy = sm.y - y;
           const dist = Math.hypot(dx, dy);
           if (mouse.active && dist < RADIUS) {
             const a = Math.atan2(dy, dx);
             const sector = ((Math.round(a / (Math.PI / 4)) % 4) + 4) % 4;
             const heat = 1 - dist / RADIUS;
-            const alpha = 0.2 + heat * 0.75;
+            const alpha = 0.28 + heat * 0.7;
             ctx.fillStyle =
-              heat > 0.55
+              heat > 0.4
                 ? `rgba(125,219,163,${alpha.toFixed(3)})`
                 : `rgba(150,158,170,${alpha.toFixed(3)})`;
             ctx.fillText(GLYPHS[sector], x, y);
           } else {
             const wave =
               Math.sin(x * 0.018 + t * 0.0006) * Math.cos(y * 0.02 - t * 0.0004);
-            const alpha = 0.14 + Math.max(0, wave) * 0.1;
+            const alpha = 0.16 + Math.max(0, wave) * 0.12;
             ctx.fillStyle = `rgba(140,150,165,${alpha.toFixed(3)})`;
             ctx.fillText("\u00B7", x, y);
           }
@@ -88,14 +93,22 @@ export default function HeroField() {
 
     const onMove = (e: PointerEvent) => {
       const r = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - r.left;
-      mouse.y = e.clientY - r.top;
+      const lx = e.clientX - r.left;
+      const ly = e.clientY - r.top;
+      if (!mouse.active) {
+        sm.x = lx;
+        sm.y = ly;
+      }
+      mouse.x = lx;
+      mouse.y = ly;
       mouse.active = true;
     };
     const onLeave = () => {
       mouse.active = false;
       mouse.x = -9999;
       mouse.y = -9999;
+      sm.x = -9999;
+      sm.y = -9999;
     };
     host.addEventListener("pointermove", onMove, { passive: true });
     host.addEventListener("pointerleave", onLeave);
